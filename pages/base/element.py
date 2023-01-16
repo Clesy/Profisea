@@ -10,13 +10,13 @@ class BasePageElement(object):
         self.locators = None
 
     def find_element(self, by=By.ID, value=None) -> WebElement:
-        WebDriverWait(self.driver, 100).until(
+        WebDriverWait(self.driver, 10).until(
             lambda driver_: self.driver.find_element(by, value)
         )
         return self.driver.find_element(by, value)
 
     def find_elements(self, by=By.ID, value=None) -> list[WebElement]:
-        WebDriverWait(self.driver, 100).until(
+        WebDriverWait(self.driver, 10).until(
             lambda driver_: self.driver.find_elements(by, value)
         )
         return self.driver.find_elements(by, value)

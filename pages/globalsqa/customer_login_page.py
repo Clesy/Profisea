@@ -1,8 +1,9 @@
 from selenium.webdriver import Firefox
 
+from helpers.links import GLOBALS_QA_URL
 from locators.locators import CustomerLoginPageLocators
 from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
+from pages.base.base_element import BaseElement
 from pages.globalsqa.customer_page import CustomerPage
 
 
@@ -10,8 +11,11 @@ class CustomerLoginPage(BasePage):
     def __init__(self, driver: Firefox):
         super().__init__(driver)
 
-        self.element = BasePageElement(self.driver)
+        self.element = BaseElement(self.driver)
         self.customer_login_page = CustomerLoginPageLocators()
+
+    def load(self):
+        self.driver.get(GLOBALS_QA_URL)
 
     def take_user(self, user_name: str):
         select = self.users_list

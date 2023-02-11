@@ -1,8 +1,9 @@
+from helpers.links import GLOBALS_QA_URL
 from pages.globalsqa.home_page import HomePage
 
 
 def test_a(firefox_driver_setup):
-    firefox_driver_setup.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/")
+    firefox_driver_setup.get(GLOBALS_QA_URL)
     home_page = HomePage(firefox_driver_setup)
     customer_login_page = home_page.customer_login()
     customer_login_page.take_user("Ron Weasly")
@@ -19,7 +20,7 @@ def test_a(firefox_driver_setup):
 
 
 def test_b(firefox_driver_setup):
-    firefox_driver_setup.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/")
+    firefox_driver_setup.get(GLOBALS_QA_URL)
     home_page = HomePage(firefox_driver_setup)
     customer_login_page = home_page.customer_login()
     customer_login_page.take_user("Harry Potter")

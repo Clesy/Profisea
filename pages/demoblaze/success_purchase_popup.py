@@ -1,20 +1,20 @@
 from selenium.webdriver import Firefox
+from selenium.webdriver.common.by import By
 
-from locators.locators import StorePage
-from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
+from pages.base.base_element import BaseElement
 
 
-class SuccessPurchasePopup(BasePage):
+class SuccessPurchasePopupLocators:
+    SUCCESS_PURCHASE_TEXT = (By.XPATH, "// h2[normalize-space() = 'Thank you for your purchase!']")
+
+
+class SuccessPurchasePopup:
     def __init__(self, driver: Firefox):
-        super().__init__(driver)
+        self.driver = driver
+        self.element = BaseElement(self.driver)
 
-        self.element = BasePageElement(self.driver)
-        self.page = StorePage()
+        self.success_purchase_text = self.element.find_element(SuccessPurchasePopupLocators.SUCCESS_PURCHASE_TEXT[0],
+                                                               SuccessPurchasePopupLocators.SUCCESS_PURCHASE_TEXT[1])
 
     def get_success_purchase_text(self):
         return self.success_purchase_text.text
-
-    @property
-    def success_purchase_text(self):
-        return self.element.find_element(self.page.SUCCESS_PURCHASE_TEXT[0], self.page.SUCCESS_PURCHASE_TEXT[1])

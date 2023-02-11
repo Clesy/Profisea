@@ -1,28 +1,30 @@
 from selenium.webdriver import Firefox
+from selenium.webdriver.common.by import By
 
-from locators.locators import StorePage
-from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
+from helpers.links import DEMOBLAZE_URL
+from pages.base.base_element import BaseElement
 from pages.demoblaze.phone_page import PhonePage
 
 
-class HomePage(BasePage):
-    def __init__(self, driver: Firefox):
-        super().__init__(driver)
+class HomePageLocators:
+    PHONE_LINK = (By.XPATH, "(//a[normalize-space()='Phones'])[1]")
+    OPEN_PHONE_LINK = (By.XPATH, "(//a[@class='hrefch'])[1]")
 
-        self.element = BasePageElement(self.driver)
-        self.page = StorePage()
+
+class HomePage:
+    def __init__(self, driver: Firefox):
+        self.driver = driver
+        self.element = BaseElement(self.driver)
+
+        self.phone_category = self.driver.find_element(HomePageLocators.PHONE_LINK[0], HomePageLocators.PHONE_LINK[1])
+        self.phone_link = self.driver.find_element(HomePageLocators.OPEN_PHONE_LINK[0],
+                                                    HomePageLocators.OPEN_PHONE_LINK[1])
+
+    def load(self):
+        self.driver.get(DEMOBLAZE_URL)
 
     def go_to_phone(self):
-        self.phone_category_link.click()
-        self.open_phone_link.click()
+        self.phone_category.click()
+        self.phone_link.click()
 
         return PhonePage(self.driver)
-
-    @property
-    def phone_category_link(self):
-        return self.element.find_element(self.page.PHONE_LINK[0], self.page.PHONE_LINK[1])
-
-    @property
-    def open_phone_link(self):
-        return self.element.find_element(self.page.OPEN_PHONE_LINK[0], self.page.OPEN_PHONE_LINK[1])

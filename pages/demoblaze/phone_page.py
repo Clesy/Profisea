@@ -1,27 +1,25 @@
 from selenium.webdriver import Firefox
+from selenium.webdriver.common.by import By
 
-from locators.locators import StorePage
-from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
+from pages.base.base_element import BaseElement
 from pages.demoblaze.cart_page import CartPage
 
 
-class PhonePage(BasePage):
-    def __init__(self, driver: Firefox):
-        super().__init__(driver)
+class PhonePageLocators:
+    CART_LINK = (By.XPATH, "//a[@id='cartur']")
+    ADD_TO_CART_BTN = (By.XPATH, "//a[normalize-space()='Add to cart']")
 
-        self.element = BasePageElement(self.driver)
-        self.page = StorePage()
+
+class PhonePage:
+    def __init__(self, driver: Firefox):
+        self.driver = driver
+        self.element = BaseElement(self.driver)
+
+        self.card_link = self.element.find_element(PhonePageLocators.CART_LINK[0], PhonePageLocators.CART_LINK[1])
+        self.add_to_cart = self.element.find_element(PhonePageLocators.ADD_TO_CART_BTN[0],
+                                                     PhonePageLocators.ADD_TO_CART_BTN[1])
 
     def go_to_cart(self):
         self.add_to_cart.click()
-        self.cart_link.click()
+        self.card_link.click()
         return CartPage(self.driver)
-
-    @property
-    def add_to_cart(self):
-        return self.element.find_element(self.page.ADD_TO_CART_BTN[0], self.page.ADD_TO_CART_BTN[1])
-
-    @property
-    def cart_link(self):
-        return self.element.find_element(self.page.CART_LINK[0], self.page.CART_LINK[1])

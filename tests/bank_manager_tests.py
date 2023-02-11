@@ -2,8 +2,7 @@ from pages.globalsqa.home_page import HomePage
 
 
 def test_a(firefox_driver_setup):
-    firefox_driver_setup.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/")
-    home_page = HomePage(firefox_driver_setup)
+    home_page = HomePage(firefox_driver_setup).load()
     bank_manager_page = home_page.bank_manager_login()
     first_name = "Clar"
     last_name = "Clar"

@@ -1,8 +1,9 @@
+from helpers.links import DEMOBLAZE_URL
 from pages.demoblaze.home_page import HomePage
 
 
 def test_buy_on_store(firefox_driver_setup):
-    firefox_driver_setup.get("https://www.demoblaze.com/")
+    firefox_driver_setup.get(DEMOBLAZE_URL)
     home_page = HomePage(firefox_driver_setup)
     phone_page = home_page.go_to_phone()
     cart_page = phone_page.go_to_cart()

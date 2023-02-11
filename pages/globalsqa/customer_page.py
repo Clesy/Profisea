@@ -3,17 +3,21 @@ from datetime import datetime
 
 from selenium.webdriver import Firefox
 
+from helpers.links import GLOBALS_QA_URL
 from locators.locators import CustomerPageLocators, BaseLocators
-from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
+from pages.base.base_element import BaseElement
 
 
-class CustomerPage(BasePage):
+class CustomerPage:
     def __init__(self, driver: Firefox):
-        super().__init__(driver)
-
-        self.element = BasePageElement(self.driver)
+        self.driver = driver
+        self.element = BaseElement(self.driver)
         self.customer_page = CustomerPageLocators()
+
+        self.date = driver.find_element(self.customer_page.TRANSACTION_DATE[0], self.customer_page.TRANSACTION_DATE[1])
+
+    def load(self):
+        self.driver.get(GLOBALS_QA_URL)
 
     def deposit(self, amount):
         self.deposit_btn.click()
@@ -26,9 +30,7 @@ class CustomerPage(BasePage):
 
     def transactions_date(self):
         self.transaction_btn.click()
-        date = datetime.strptime(self.element.find_element(self.customer_page.TRANSACTION_DATE[0],
-                                                           self.customer_page.TRANSACTION_DATE[1]).text,
-                                 "%b %d, %Y %H:%M:%S PM")
+        date = datetime.strptime(self.date.text, "%b %d, %Y %H:%M:%S PM")
         return date
 
     def get_transaction_amount(self):

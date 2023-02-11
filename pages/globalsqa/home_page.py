@@ -1,18 +1,20 @@
 from selenium.webdriver import Firefox
 
+from helpers.links import GLOBALS_QA_URL
 from locators.locators import HomePageLocators
+from pages.base.base_element import BaseElement
 from pages.globalsqa.bank_manager_page import BankManagerPage
-from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
 from pages.globalsqa.customer_login_page import CustomerLoginPage
 
 
-class HomePage(BasePage):
+class HomePage:
     def __init__(self, driver: Firefox):
-        super().__init__(driver)
-
-        self.element = BasePageElement(self.driver)
+        self.driver = driver
+        self.element = BaseElement(self.driver)
         self.home_locators = HomePageLocators()
+
+    def load(self):
+        self.driver.get(GLOBALS_QA_URL)
 
     def customer_login(self):
         self.customer_login_btn.click()

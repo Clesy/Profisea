@@ -1,17 +1,21 @@
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.alert import Alert
 
+from helpers.links import GLOBALS_QA_URL
 from locators.locators import BankManagerPageLocators
 from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
+from pages.base.base_element import BaseElement
 
 
 class BankManagerPage(BasePage):
     def __init__(self, driver: Firefox):
         super().__init__(driver)
 
-        self.element = BasePageElement(self.driver)
+        self.element = BaseElement(self.driver)
         self.bank_manager = BankManagerPageLocators()
+
+    def load(self):
+        self.driver.get(GLOBALS_QA_URL)
 
     def add_new_customer(self, first_name, last_name, post_code):
         self.add_customer_btn.click()

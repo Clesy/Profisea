@@ -1,17 +1,40 @@
 from selenium.webdriver import Firefox
+from selenium.webdriver.common.by import By
 
-from locators.locators import StorePage
-from pages.base.base_page import BasePage
-from pages.base.element import BasePageElement
+from pages.base.base_element import BaseElement
 from pages.demoblaze.success_purchase_popup import SuccessPurchasePopup
 
 
-class PlaceOrderPopup(BasePage):
-    def __init__(self, driver: Firefox):
-        super().__init__(driver)
+class PlaceOrderPopupLocators:
+    NAME_INPUT = (By.XPATH, "//input[@id='name']")
+    COUNTRY_INPUT = (By.XPATH, "//input[@id='country']")
+    CITY_INPUT = (By.XPATH, "//input[@id='city']")
+    CREDIT_CARD_INPUT = (By.XPATH, "//input[@id='card']")
+    MONTH_INPUT = (By.XPATH, "//input[@id='month']")
+    YEAR_INPUT = (By.XPATH, "//input[@id='year']")
 
-        self.element = BasePageElement(self.driver)
-        self.store_page = StorePage()
+    PURCHASE_BTN = (By.XPATH, "//button[normalize-space()='Purchase']")
+
+
+class PlaceOrderPopup:
+    def __init__(self, driver: Firefox):
+        self.driver = driver
+        self.element = BaseElement(self.driver)
+
+        self.name_input = self.element.find_element(PlaceOrderPopupLocators.NAME_INPUT[0],
+                                                    PlaceOrderPopupLocators.NAME_INPUT[1])
+        self.country_input = self.element.find_element(PlaceOrderPopupLocators.COUNTRY_INPUT[0],
+                                                       PlaceOrderPopupLocators.COUNTRY_INPUT[1])
+        self.city_input = self.element.find_element(PlaceOrderPopupLocators.CITY_INPUT[0],
+                                                    PlaceOrderPopupLocators.CITY_INPUT[1])
+        self.credit_card_input = self.element.find_element(PlaceOrderPopupLocators.CREDIT_CARD_INPUT[0],
+                                                           PlaceOrderPopupLocators.CREDIT_CARD_INPUT[1])
+        self.month_input = self.element.find_element(PlaceOrderPopupLocators.MONTH_INPUT[0],
+                                                     PlaceOrderPopupLocators.MONTH_INPUT[1])
+        self.year_input = self.element.find_element(PlaceOrderPopupLocators.YEAR_INPUT[0],
+                                                    PlaceOrderPopupLocators.YEAR_INPUT[1])
+        self.purchase_btn = self.element.find_element(PlaceOrderPopupLocators.PURCHASE_BTN[0],
+                                                      PlaceOrderPopupLocators.PURCHASE_BTN[1])
 
     def purchase(self, name, country, city, credit_cart, month, year):
         self.name_input.send_keys(name)
@@ -22,31 +45,3 @@ class PlaceOrderPopup(BasePage):
         self.year_input.send_keys(year)
         self.purchase_btn.click()
         return SuccessPurchasePopup(self.driver)
-
-    @property
-    def name_input(self):
-        return self.element.find_element(self.store_page.NAME_INPUT[0], self.store_page.NAME_INPUT[1])
-
-    @property
-    def country_input(self):
-        return self.element.find_element(self.store_page.COUNTRY_INPUT[0], self.store_page.COUNTRY_INPUT[1])
-
-    @property
-    def city_input(self):
-        return self.element.find_element(self.store_page.CITY_INPUT[0], self.store_page.CITY_INPUT[1])
-
-    @property
-    def credit_card_input(self):
-        return self.element.find_element(self.store_page.CREDIT_CARD_INPUT[0], self.store_page.CREDIT_CARD_INPUT[1])
-
-    @property
-    def month_input(self):
-        return self.element.find_element(self.store_page.MONTH_INPUT[0], self.store_page.MONTH_INPUT[1])
-
-    @property
-    def year_input(self):
-        return self.element.find_element(self.store_page.YEAR_INPUT[0], self.store_page.YEAR_INPUT[1])
-
-    @property
-    def purchase_btn(self):
-        return self.element.find_element(self.store_page.PURCHASE_BTN[0], self.store_page.PURCHASE_BTN[1])

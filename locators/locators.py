@@ -75,26 +75,3 @@ class BankManagerPageLocators:
     CUSTOMER_LIST = (By.XPATH, "//select[@id='userSelect']")
     CURRENCY_LIST = (By.XPATH, "//option[@value='{}']")
     LIST_OPTIONS = (By.TAG_NAME, "option")
-
-
-class StorePage:
-    # Link
-    PHONE_LINK = (By.XPATH, "(//a[normalize-space()='Phones'])[1]")
-    OPEN_PHONE_LINK = (By.XPATH, "(//a[@class='hrefch'])[1]")
-    CART_LINK = (By.XPATH, "//a[@id='cartur']")
-
-    # Text
-    SUCCESS_PURCHASE_TEXT = (By.XPATH, "// h2[normalize-space() = 'Thank you for your purchase!']")
-
-    # Buttons
-    ADD_TO_CART_BTN = (By.XPATH, "//a[normalize-space()='Add to cart']")
-    PLACE_ORDER_BTN = (By.XPATH, "//button[normalize-space()='Place Order']")
-    PURCHASE_BTN = (By.XPATH, "//button[normalize-space()='Purchase']")
-
-    # Inputs
-    NAME_INPUT = (By.XPATH, "//input[@id='name']")
-    COUNTRY_INPUT = (By.XPATH, "//input[@id='country']")
-    CITY_INPUT = (By.XPATH, "//input[@id='city']")
-    CREDIT_CARD_INPUT = (By.XPATH, "//input[@id='card']")
-    MONTH_INPUT = (By.XPATH, "//input[@id='month']")
-    YEAR_INPUT = (By.XPATH, "//input[@id='year']")
